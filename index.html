@@ -26,6 +26,33 @@
         --transition: 220ms ease;
       }
 
+    <title>City Cards — Discover Your Next Adventure</title>
+    <!-- Google Font: Inter for modern, clean typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        /* Color tokens */
+        --color-background-overlay: rgba(11, 16, 33, 0.55);
+        --color-card-bg: rgba(255, 255, 255, 0.14);
+        --color-card-border: rgba(255, 255, 255, 0.28);
+        --color-text-primary: #ffffff;
+        --color-text-secondary: rgba(255, 255, 255, 0.9);
+        --color-text-muted: rgba(255, 255, 255, 0.68);
+        --color-highlight: #f5d259;
+        --color-pill-bg: rgba(255, 255, 255, 0.22);
+        --color-pill-border: rgba(255, 255, 255, 0.38);
+        --color-button: linear-gradient(135deg, #fdd66c 0%, #f5b948 100%);
+        --color-button-hover: linear-gradient(135deg, #ffe394 0%, #ffc15d 100%);
+        --color-focus-ring: rgba(255, 255, 255, 0.9);
+        --shadow-card: 0 25px 60px rgba(12, 17, 40, 0.45);
+        --shadow-button: 0 18px 30px rgba(255, 208, 112, 0.4);
+        --shadow-pill: 0 12px 20px rgba(14, 19, 37, 0.35);
+        --transition-base: 200ms ease;
+      }
+
+      /* Global reset-lite */
       * {
         box-sizing: border-box;
       }
@@ -40,6 +67,22 @@
 
       a {
         color: inherit;
+        font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        color: var(--color-text-primary);
+        background: #000;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      main {
+        position: relative;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2.5rem 1.5rem 5rem;
+        isolation: isolate;
       }
 
       .hero-background {
@@ -87,6 +130,49 @@
         gap: 16px;
         position: relative;
         z-index: 1;
+        background-image: linear-gradient(var(--color-background-overlay), var(--color-background-overlay)),
+          url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1600&auto=format&fit=crop');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        z-index: -2;
+      }
+
+      .hero-overlay {
+        position: fixed;
+        inset: 0;
+        background: radial-gradient(circle at top, rgba(15, 23, 42, 0.55), transparent 60%),
+          linear-gradient(180deg, rgba(15, 23, 42, 0.55) 0%, rgba(15, 23, 42, 0.75) 100%);
+        z-index: -1;
+      }
+
+      .content-wrapper {
+        max-width: 1100px;
+        width: 100%;
+        display: grid;
+        gap: 2.5rem;
+        justify-items: stretch;
+        animation: heroIntro 650ms ease-out forwards;
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      @keyframes heroIntro {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .top-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1.5rem;
       }
 
       .brand {
@@ -111,6 +197,30 @@
         color: var(--ink);
         font-weight: 800;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+        gap: 0.65rem;
+        font-weight: 600;
+        font-size: 1.05rem;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: var(--color-text-primary);
+        text-decoration: none;
+      }
+
+      .brand:focus-visible {
+        outline: 3px solid var(--color-focus-ring);
+        outline-offset: 3px;
+        border-radius: 12px;
+      }
+
+      .brand-mark {
+        width: 34px;
+        height: 34px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.24);
+        display: grid;
+        place-items: center;
+        font-size: 1.1rem;
+        box-shadow: var(--shadow-pill);
       }
 
       .nav-links {
@@ -160,6 +270,45 @@
       .brand:focus-visible,
       .nav-links a:focus-visible {
         outline: 3px solid var(--focus-ring);
+        gap: 1.5rem;
+        font-size: 0.95rem;
+        color: var(--color-text-secondary);
+      }
+
+      .nav-links a {
+        color: inherit;
+        text-decoration: none;
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        padding: 0.25rem 0;
+      }
+
+      .nav-links a::after {
+        content: '';
+        position: absolute;
+        inset-inline: 0;
+        bottom: -0.4rem;
+        height: 2px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.5);
+        transform: scaleX(0);
+        transform-origin: center;
+        transition: transform var(--transition-base);
+      }
+
+      .nav-links a:focus-visible,
+      .nav-links a:hover {
+        color: #ffffff;
+      }
+
+      .nav-links a:hover::after,
+      .nav-links a:focus-visible::after {
+        transform: scaleX(1);
+      }
+
+      .nav-links a:focus-visible {
+        outline: 2px solid var(--color-focus-ring);
         outline-offset: 4px;
         border-radius: 999px;
       }
@@ -223,6 +372,61 @@
         display: grid;
         gap: 10px;
         max-width: 320px;
+      .top-action {
+        padding: 0.65rem 1.45rem;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        background: rgba(15, 20, 40, 0.35);
+        color: var(--color-text-primary);
+        font-size: 0.95rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition: background-color var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
+      }
+
+      .top-action:hover,
+      .top-action:focus-visible {
+        background: rgba(255, 255, 255, 0.22);
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-pill);
+      }
+
+      .top-action:focus-visible {
+        outline: 3px solid var(--color-focus-ring);
+        outline-offset: 3px;
+      }
+
+      .headline-group {
+        display: grid;
+        gap: 1rem;
+        text-align: left;
+      }
+
+      .headline {
+        font-size: clamp(2.3rem, 6vw, 4rem);
+        font-weight: 600;
+        margin: 0;
+        letter-spacing: -0.025em;
+        line-height: 1.05;
+        max-width: 18ch;
+      }
+
+      .headline .highlight {
+        color: var(--color-highlight);
+      }
+
+      .subheadline {
+        margin: 0;
+        font-size: clamp(1.05rem, 2.9vw, 1.35rem);
+        font-weight: 400;
+        color: var(--color-text-secondary);
+        max-width: 48ch;
+      }
+
+      .feature-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
       }
 
       .chip {
@@ -488,6 +692,198 @@
         .search-form button {
           height: 64px;
           border-radius: 999px;
+        gap: 0.45rem;
+        padding: 0.55rem 0.95rem;
+        border-radius: 999px;
+        border: 1px solid var(--color-pill-border);
+        background: var(--color-pill-bg);
+        color: var(--color-text-primary);
+        font-size: 0.9rem;
+        box-shadow: var(--shadow-pill);
+      }
+
+      .search-card {
+        width: min(100%, 840px);
+        background: var(--color-card-bg);
+        border: 1px solid var(--color-card-border);
+        border-radius: 26px;
+        backdrop-filter: blur(14px);
+        box-shadow: var(--shadow-card);
+        padding: 2rem 1.75rem 2.25rem;
+        display: grid;
+        gap: 1.5rem;
+        text-align: left;
+      }
+
+      .search-card-header {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .rating-box {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        padding: 0.9rem 1.15rem;
+        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        background: rgba(14, 21, 39, 0.45);
+        max-width: 220px;
+      }
+
+      .rating-score {
+        font-size: 1.6rem;
+        font-weight: 600;
+        line-height: 1;
+      }
+
+      .rating-copy {
+        font-size: 0.85rem;
+        color: var(--color-text-muted);
+      }
+
+      .form-grid {
+        display: grid;
+        gap: 1.25rem;
+      }
+
+      .form-field {
+        display: grid;
+        gap: 0.5rem;
+      }
+
+      .form-field.button-field {
+        margin-top: 0.25rem;
+      }
+
+      label {
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: var(--color-text-secondary);
+        letter-spacing: 0.01em;
+      }
+
+      select,
+      input[type='date'] {
+        width: 100%;
+        padding: 0.85rem 1rem;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        background-color: rgba(15, 23, 42, 0.35);
+        color: var(--color-text-primary);
+        font-size: 1rem;
+        transition: border-color var(--transition-base), box-shadow var(--transition-base), transform var(--transition-base);
+      }
+
+      select:focus,
+      input[type='date']:focus {
+        outline: none;
+        border-color: var(--color-focus-ring);
+        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+      }
+
+      button {
+        align-self: end;
+        padding: 0.95rem 1.85rem;
+        border: none;
+        border-radius: 999px;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #2a1a04;
+        background: var(--color-button);
+        box-shadow: var(--shadow-button);
+        cursor: pointer;
+        width: 100%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform var(--transition-base), box-shadow var(--transition-base), background 220ms ease;
+      }
+
+      button:hover {
+        background: var(--color-button-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 16px 28px rgba(249, 115, 22, 0.45);
+      }
+
+      button:focus-visible {
+        outline: 3px solid var(--color-focus-ring);
+        outline-offset: 3px;
+      }
+
+      button:active {
+        transform: translateY(0);
+      }
+
+      .footer-note {
+        text-align: center;
+        padding: 1.5rem 1rem 2.5rem;
+        font-size: 0.9rem;
+        color: var(--color-text-muted);
+      }
+
+      .meta-grid {
+        display: grid;
+        gap: 0.85rem;
+      }
+
+      .meta-row {
+        display: grid;
+        gap: 0.75rem;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      }
+
+      .meta-card {
+        display: grid;
+        gap: 0.4rem;
+        padding: 0.85rem 1rem;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        background: rgba(12, 18, 36, 0.45);
+      }
+
+      .meta-title {
+        font-size: 0.8rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.65);
+      }
+
+      .meta-value {
+        font-size: 1rem;
+        font-weight: 500;
+        color: var(--color-text-primary);
+      }
+
+      /* Screen-reader-only utility class for descriptive hints */
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      @media (min-width: 640px) {
+        .nav-links {
+          display: inline-flex;
+        }
+
+        .content-wrapper {
+          gap: 3rem;
+        }
+
+        .search-card {
+          padding: 2.25rem 2.15rem 2.5rem;
+        }
+
+        .meta-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
         }
       }
 
@@ -532,6 +928,51 @@
           gap: 28px;
           padding: 32px 36px;
         }
+        main {
+          padding: 4rem;
+        }
+
+        .content-wrapper {
+          gap: 3.5rem;
+        }
+
+        main {
+          justify-content: flex-start;
+        }
+
+        .form-grid {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          align-items: end;
+          gap: 1rem;
+        }
+
+        .form-field.button-field {
+          align-self: stretch;
+          display: flex;
+          justify-content: flex-end;
+          align-items: flex-end;
+        }
+
+        button {
+          max-width: 200px;
+          font-size: 1.05rem;
+        }
+
+        .headline-group {
+          max-width: 56ch;
+        }
+      }
+
+      /* Improve date input text color in Safari */
+      input[type='date']::-webkit-calendar-picker-indicator {
+        filter: invert(1);
+      }
+
+      /* Accessible focus states for form controls */
+      select:focus-visible,
+      input[type='date']:focus-visible {
+        outline: 3px solid var(--color-focus-ring);
+        outline-offset: 3px;
       }
     </style>
   </head>
@@ -645,6 +1086,109 @@
         <footer>Prototype UI — functionality coming soon</footer>
       </div>
     </div>
+    <div class="hero-overlay" aria-hidden="true"></div>
+    <main>
+      <div class="content-wrapper">
+        <div class="top-bar" role="navigation" aria-label="Primary">
+          <a class="brand" href="#" aria-label="City Cards home">
+            <span class="brand-mark" aria-hidden="true">CC</span>
+            City Cards
+          </a>
+          <nav class="nav-links" aria-label="Landing page sections">
+            <a href="#destinations">Destinations</a>
+            <a href="#collections">Collections</a>
+            <a href="#stories">Travel Stories</a>
+          </nav>
+          <a class="top-action" href="#preview">Book Preview</a>
+        </div>
+
+        <header class="headline-group" role="presentation">
+          <h1 class="headline">Find your perfect <span class="highlight">escape</span></h1>
+          <p class="subheadline">Discover handpicked city stays wrapped in nature, curated for the way you love to travel.</p>
+          <div class="feature-chips" role="list">
+            <span class="chip" role="listitem">🌐 Ultra-fast Wi‑Fi</span>
+            <span class="chip" role="listitem">🛎️ Concierge ready</span>
+            <span class="chip" role="listitem">🌿 Eco-certified</span>
+          </div>
+        </header>
+
+        <section class="search-card" aria-label="City cards search form">
+          <div class="search-card-header">
+            <div class="rating-box" aria-label="Guest satisfaction">
+              <span class="rating-score" aria-hidden="true">4.9</span>
+              <span class="rating-copy">Loved by 2,400+ explorers</span>
+            </div>
+            <div class="meta-grid" aria-label="Stay overview">
+              <div class="meta-row">
+                <div class="meta-card">
+                  <span class="meta-title">Room</span>
+                  <span class="meta-value">Panorama Loft</span>
+                </div>
+                <div class="meta-card">
+                  <span class="meta-title">Check-in</span>
+                  <span class="meta-value">15 Mar 2025</span>
+                </div>
+                <div class="meta-card">
+                  <span class="meta-title">Check-out</span>
+                  <span class="meta-value">30 Mar 2025</span>
+                </div>
+                <div class="meta-card">
+                  <span class="meta-title">Guests</span>
+                  <span class="meta-value">4 Adults</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <form id="search-form" class="form-grid" novalidate>
+            <div class="form-field">
+              <label for="destination">Destination</label>
+              <select id="destination" name="destination" required aria-required="true">
+                <option value="" disabled selected>Select destination…</option>
+                <optgroup label="Countries">
+                  <option value="portugal">Portugal</option>
+                  <option value="spain">Spain</option>
+                  <option value="france">France</option>
+                  <option value="italy">Italy</option>
+                  <option value="germany">Germany</option>
+                  <option value="netherlands">Netherlands</option>
+                  <option value="uk">United Kingdom</option>
+                </optgroup>
+                <optgroup label="Cities">
+                  <option value="lisbon">Lisbon</option>
+                  <option value="porto">Porto</option>
+                  <option value="madrid">Madrid</option>
+                  <option value="barcelona">Barcelona</option>
+                  <option value="paris">Paris</option>
+                  <option value="rome">Rome</option>
+                  <option value="berlin">Berlin</option>
+                  <option value="amsterdam">Amsterdam</option>
+                  <option value="london">London</option>
+                </optgroup>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label for="arrive">Arrive</label>
+              <input id="arrive" name="arrive" type="date" aria-describedby="arrive-help" />
+              <span id="arrive-help" class="sr-only">Choose the date you will arrive.</span>
+            </div>
+
+            <div class="form-field">
+              <label for="return">Return</label>
+              <input id="return" name="return" type="date" aria-describedby="return-help" />
+              <span id="return-help" class="sr-only">Choose the date you will return.</span>
+            </div>
+
+            <div class="form-field button-field">
+              <button type="submit">Show Cards</button>
+            </div>
+          </form>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer-note">Prototype UI — functionality coming soon</footer>
 
     <script>
       const form = document.getElementById('search-form');
@@ -660,6 +1204,23 @@
         if (returnInput) {
           returnInput.min = arriveInput.value;
         }
+      // Keep the return date in sync with the selected arrival date.
+      arriveInput.addEventListener('change', function (event) {
+        const selectedDate = event.target.value;
+        if (selectedDate) {
+          returnInput.min = selectedDate;
+          if (returnInput.value && returnInput.value < selectedDate) {
+            returnInput.value = selectedDate;
+          }
+        } else {
+          returnInput.removeAttribute('min');
+        }
+      });
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        // Stub: future integration with search results. For now we log for dev insight.
+        console.log('Show Cards clicked');
       });
     </script>
   </body>
