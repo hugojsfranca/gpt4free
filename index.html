@@ -3,6 +3,29 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Harmont Retreats — Find Your Perfect Space</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --accent: #f4e27c;
+        --ink: #0f1410;
+        --ink-muted: #2d3a35;
+        --frame: rgba(255, 255, 255, 0.9);
+        --chip-bg: rgba(255, 255, 255, 0.18);
+        --chip-stroke: rgba(255, 255, 255, 0.45);
+        --glass: rgba(255, 255, 255, 0.1);
+        --overlay: rgba(16, 32, 28, 0.35);
+        --white: #ffffff;
+        --search-bg: rgba(255, 255, 255, 0.96);
+        --focus-ring: rgba(244, 226, 124, 0.85);
+        --divider: rgba(15, 20, 16, 0.12);
+        --shadow-elevated: 0 26px 80px rgba(10, 22, 19, 0.35);
+        --shadow-chip: 0 16px 40px rgba(9, 17, 14, 0.25);
+        --transition: 220ms ease;
+      }
+
     <title>City Cards — Discover Your Next Adventure</title>
     <!-- Google Font: Inter for modern, clean typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -36,6 +59,14 @@
 
       body {
         margin: 0;
+        min-height: 100vh;
+        font-family: 'Manrope', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        color: var(--white);
+        background: #08110f;
+      }
+
+      a {
+        color: inherit;
         font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         color: var(--color-text-primary);
         background: #000;
@@ -57,6 +88,48 @@
       .hero-background {
         position: fixed;
         inset: 0;
+        background: linear-gradient(var(--overlay), var(--overlay)),
+          url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1920&auto=format&fit=crop') center / cover no-repeat;
+        z-index: -2;
+      }
+
+      .frame-wrap {
+        position: relative;
+        min-height: 100vh;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .frame {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        border: 3px solid var(--frame);
+        border-radius: 44px;
+        padding: 32px 24px 120px;
+        backdrop-filter: blur(4px);
+        background: rgba(8, 17, 15, 0.15);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .frame::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 42px;
+        background: linear-gradient(160deg, rgba(255, 255, 255, 0.08), transparent 55%);
+        pointer-events: none;
+      }
+
+      header.top-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        position: relative;
+        z-index: 1;
         background-image: linear-gradient(var(--color-background-overlay), var(--color-background-overlay)),
           url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1600&auto=format&fit=crop');
         background-size: cover;
@@ -105,6 +178,25 @@
       .brand {
         display: inline-flex;
         align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        color: var(--white);
+        font-weight: 700;
+        font-size: 1.125rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .brand-mark {
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        display: grid;
+        place-items: center;
+        background: rgba(255, 255, 255, 0.25);
+        color: var(--ink);
+        font-weight: 800;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
         gap: 0.65rem;
         font-weight: 600;
         font-size: 1.05rem;
@@ -134,6 +226,50 @@
       .nav-links {
         display: none;
         align-items: center;
+        gap: 14px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.9);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 0.8rem;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        position: relative;
+        padding: 6px 0;
+      }
+
+      .nav-links .bullet {
+        opacity: 0.5;
+        font-size: 0.7rem;
+      }
+
+      .nav-cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        padding: 10px 22px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: var(--ink);
+        background: var(--accent);
+        text-decoration: none;
+        box-shadow: 0 18px 35px rgba(244, 226, 124, 0.35);
+        transition: transform var(--transition), box-shadow var(--transition);
+      }
+
+      .nav-cta:hover,
+      .nav-cta:focus-visible {
+        transform: translateY(-2px);
+        box-shadow: 0 22px 40px rgba(244, 226, 124, 0.45);
+      }
+
+      .nav-cta:focus-visible,
+      .brand:focus-visible,
+      .nav-links a:focus-visible {
+        outline: 3px solid var(--focus-ring);
         gap: 1.5rem;
         font-size: 0.95rem;
         color: var(--color-text-secondary);
@@ -177,6 +313,65 @@
         border-radius: 999px;
       }
 
+      main.hero {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        padding-top: 48px;
+        gap: 32px;
+      }
+
+      .hero-copy {
+        max-width: 520px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        animation: riseIn 600ms ease-out both;
+      }
+
+      @keyframes riseIn {
+        from {
+          opacity: 0;
+          transform: translateY(24px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .hero-kicker {
+        font-size: 0.85rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.65);
+      }
+
+      .hero-heading {
+        margin: 0;
+        font-size: clamp(2.6rem, 8vw, 4.8rem);
+        line-height: 1.05;
+        font-weight: 800;
+        color: var(--white);
+      }
+
+      .hero-heading span.highlight {
+        color: var(--accent);
+      }
+
+      .hero-subcopy {
+        margin: 0;
+        font-size: 1.05rem;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.78);
+      }
+
+      .chips {
+        display: grid;
+        gap: 10px;
+        max-width: 320px;
       .top-action {
         padding: 0.65rem 1.45rem;
         border-radius: 999px;
@@ -237,6 +432,266 @@
       .chip {
         display: inline-flex;
         align-items: center;
+        gap: 10px;
+        padding: 10px 18px;
+        border-radius: 999px;
+        border: 1px solid var(--chip-stroke);
+        background: var(--chip-bg);
+        backdrop-filter: blur(8px);
+        box-shadow: var(--shadow-chip);
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+
+      .chip .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 0 3px rgba(244, 226, 124, 0.25);
+      }
+
+      .badge-rating {
+        position: static;
+        display: inline-flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        padding: 18px 22px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.16);
+        backdrop-filter: blur(10px);
+        font-weight: 600;
+        color: var(--white);
+        width: fit-content;
+        box-shadow: var(--shadow-chip);
+        margin-top: 24px;
+      }
+
+      .badge-rating strong {
+        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .badge-rating span {
+        font-size: 0.95rem;
+        color: rgba(255, 255, 255, 0.78);
+      }
+
+      .map-badge {
+        position: static;
+        margin-top: 24px;
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: radial-gradient(circle at center, rgba(244, 226, 124, 0.9), rgba(13, 35, 27, 0.3));
+        box-shadow: 0 25px 50px rgba(6, 10, 8, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.45);
+        backdrop-filter: blur(8px);
+      }
+
+      .map-badge::after {
+        content: '';
+        width: 18px;
+        height: 18px;
+        border-radius: 50% 50% 0 50%;
+        transform: rotate(45deg);
+        background: var(--ink);
+        position: relative;
+        top: 8px;
+        box-shadow: 0 8px 14px rgba(0, 0, 0, 0.4);
+      }
+
+      .search-shell {
+        position: relative;
+        z-index: 2;
+        animation: floatUp 650ms ease-out 120ms both;
+      }
+
+      @keyframes floatUp {
+        from {
+          opacity: 0;
+          transform: translateY(24px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      form.search-form {
+        display: grid;
+        gap: 20px;
+        padding: 24px;
+        border-radius: 28px;
+        background: var(--search-bg);
+        box-shadow: var(--shadow-elevated);
+        color: var(--ink);
+      }
+
+      .search-form label {
+        font-weight: 600;
+        font-size: 0.85rem;
+        display: block;
+        margin-bottom: 6px;
+        color: var(--ink-muted);
+      }
+
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .field select,
+      .field input {
+        appearance: none;
+        width: 100%;
+        border: none;
+        border-radius: 16px;
+        padding: 14px 16px;
+        background: rgba(15, 20, 16, 0.05);
+        font-size: 0.98rem;
+        font-weight: 600;
+        color: var(--ink);
+        font-family: inherit;
+        transition: box-shadow var(--transition), transform var(--transition);
+      }
+
+      .field select:focus-visible,
+      .field input:focus-visible,
+      .search-form button:focus-visible {
+        outline: 3px solid var(--focus-ring);
+        outline-offset: 2px;
+      }
+
+      .search-form button {
+        border: none;
+        border-radius: 20px;
+        padding: 16px;
+        font-size: 1rem;
+        font-weight: 700;
+        background: var(--accent);
+        color: var(--ink);
+        cursor: pointer;
+        transition: transform var(--transition), box-shadow var(--transition);
+        box-shadow: 0 24px 50px rgba(244, 226, 124, 0.35);
+        width: 100%;
+        align-self: stretch;
+      }
+
+      .search-form button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 26px 56px rgba(244, 226, 124, 0.45);
+      }
+
+      .search-form button:active {
+        transform: translateY(0);
+      }
+
+      footer {
+        margin-top: 32px;
+        text-align: center;
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.68);
+      }
+
+      @media (min-width: 640px) {
+        .frame-wrap {
+          padding: 32px;
+        }
+
+        .frame {
+          padding: 48px 42px 150px;
+        }
+
+        main.hero {
+          padding-top: 32px;
+        }
+      }
+
+      @media (min-width: 768px) {
+        header.top-bar {
+          padding-inline: 12px;
+        }
+
+        .nav-links {
+          display: inline-flex;
+        }
+
+        main.hero {
+          flex-direction: row;
+          align-items: center;
+        }
+
+        .hero-copy {
+          max-width: 540px;
+        }
+
+        .chips {
+          position: absolute;
+          top: 36%;
+          left: 55%;
+          transform: translate(-10%, -50%);
+          display: grid;
+        }
+
+        .chips .chip:nth-child(2) {
+          justify-self: flex-end;
+        }
+
+        .badge-rating {
+          position: absolute;
+          right: 68px;
+          top: 40%;
+          margin-top: 0;
+        }
+
+        .map-badge {
+          position: absolute;
+          bottom: 80px;
+          left: 32px;
+          margin-top: 0;
+        }
+
+        .search-shell {
+          width: min(920px, 100%);
+          margin: 0 auto;
+        }
+
+        form.search-form {
+          display: grid;
+          grid-template-columns: repeat(5, minmax(0, 1fr));
+          align-items: end;
+          padding: 28px 32px;
+          border-radius: 36px;
+        }
+
+        .field {
+          margin-right: 0;
+          border-right: 1px solid var(--divider);
+          padding-right: 20px;
+        }
+
+        .field:last-of-type {
+          border-right: none;
+          padding-right: 0;
+        }
+
+        .field select,
+        .field input {
+          border-radius: 12px;
+          background: transparent;
+          padding: 6px 0;
+        }
+
+        .search-form button {
+          height: 64px;
+          border-radius: 999px;
         gap: 0.45rem;
         padding: 0.55rem 0.95rem;
         border-radius: 999px;
@@ -433,6 +888,46 @@
       }
 
       @media (min-width: 1024px) {
+        .frame-wrap {
+          padding: 48px;
+        }
+
+        .frame {
+          padding: 64px 72px 160px;
+        }
+
+        .hero-heading {
+          font-size: clamp(4rem, 6vw, 5.8rem);
+        }
+
+        .hero-subcopy {
+          font-size: 1.12rem;
+        }
+
+        .chips {
+          left: 58%;
+          top: 46%;
+        }
+
+        .badge-rating {
+          right: 120px;
+          top: 42%;
+        }
+
+        .map-badge {
+          left: 72px;
+          bottom: 110px;
+        }
+
+        .search-shell {
+          margin-top: -20px;
+        }
+
+        form.search-form {
+          grid-template-columns: 1.2fr repeat(3, 1fr) 0.9fr;
+          gap: 28px;
+          padding: 32px 36px;
+        }
         main {
           padding: 4rem;
         }
@@ -483,6 +978,114 @@
   </head>
   <body>
     <div class="hero-background" aria-hidden="true"></div>
+    <div class="frame-wrap">
+      <div class="frame">
+        <!-- Top Navigation -->
+        <header class="top-bar" aria-label="Primary">
+          <a class="brand" href="#" aria-label="Harmont home">
+            <span class="brand-mark">H</span>
+            Harmont
+          </a>
+          <nav class="nav-links" aria-label="Main navigation">
+            <a href="#">Locations</a>
+            <span class="bullet" aria-hidden="true">•</span>
+            <a href="#">Rooms</a>
+            <span class="bullet" aria-hidden="true">•</span>
+            <a href="#">Experiences</a>
+            <span class="bullet" aria-hidden="true">•</span>
+            <a href="#">Contact</a>
+          </nav>
+          <a class="nav-cta" href="#">Book Now</a>
+        </header>
+
+        <!-- Hero Content -->
+        <main class="hero">
+          <div class="hero-copy">
+            <span class="hero-kicker">Retreat Collection</span>
+            <h1 class="hero-heading">
+              Find Your
+              <br />
+              Perfect
+              <br />
+              <span class="highlight">Space</span>
+            </h1>
+            <p class="hero-subcopy">
+              Discover handpicked luxury cabins in breathtaking locations. Unplug, unwind, and reconnect with what
+              matters most, surrounded by elevated comfort.
+            </p>
+            <div class="chips" aria-label="Property highlights">
+              <div class="chip">
+                <span class="dot" aria-hidden="true"></span>
+                Wi-Fi 100 Mbps
+              </div>
+              <div class="chip">
+                <span class="dot" aria-hidden="true"></span>
+                Self Check-in
+              </div>
+              <div class="chip">
+                <span class="dot" aria-hidden="true"></span>
+                Pet Friendly
+              </div>
+            </div>
+            <aside class="badge-rating" aria-label="Guest rating">
+              <strong>★ 4.9</strong>
+              <span>from 2,400+ stays</span>
+            </aside>
+            <div class="map-badge" role="img" aria-label="Cabin location"></div>
+          </div>
+        </main>
+
+        <!-- Floating Search Bar -->
+        <div class="search-shell">
+          <form class="search-form" id="search-form" aria-label="Search stays">
+            <div class="field">
+              <label for="destination">Destination</label>
+              <select id="destination" name="destination" required>
+                <option value="" disabled selected>Room / Destination</option>
+                <option>Portugal</option>
+                <option>Spain</option>
+                <option>France</option>
+                <option>Italy</option>
+                <option>Germany</option>
+                <option>Netherlands</option>
+                <option>UK</option>
+                <option>Lisbon</option>
+                <option>Porto</option>
+                <option>Madrid</option>
+                <option>Barcelona</option>
+                <option>Paris</option>
+                <option>Rome</option>
+                <option>Berlin</option>
+                <option>Amsterdam</option>
+                <option>London</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="arrive">Arrive</label>
+              <input id="arrive" name="arrive" type="date" />
+            </div>
+            <div class="field">
+              <label for="return">Return</label>
+              <input id="return" name="return" type="date" />
+            </div>
+            <div class="field">
+              <label for="guests">Guests</label>
+              <select id="guests" name="guests">
+                <option>1 Adult</option>
+                <option>2 Adults</option>
+                <option>3 Adults</option>
+                <option>4 Adults</option>
+                <option>5 Adults</option>
+                <option>6 Adults</option>
+              </select>
+            </div>
+            <button type="submit">Show Cards</button>
+          </form>
+        </div>
+
+        <footer>Prototype UI — functionality coming soon</footer>
+      </div>
+    </div>
     <div class="hero-overlay" aria-hidden="true"></div>
     <main>
       <div class="content-wrapper">
@@ -592,6 +1195,15 @@
       const arriveInput = document.getElementById('arrive');
       const returnInput = document.getElementById('return');
 
+      form?.addEventListener('submit', (event) => {
+        event.preventDefault();
+        console.log('Show Cards clicked');
+      });
+
+      arriveInput?.addEventListener('change', () => {
+        if (returnInput) {
+          returnInput.min = arriveInput.value;
+        }
       // Keep the return date in sync with the selected arrival date.
       arriveInput.addEventListener('change', function (event) {
         const selectedDate = event.target.value;
