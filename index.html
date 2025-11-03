@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>City Cards — Discover Your Next Adventure</title>
+    <!-- Google Font: Inter for modern, clean typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        /* Color tokens */
+        --color-background-overlay: rgba(15, 23, 42, 0.55);
+        --color-card-bg: rgba(255, 255, 255, 0.12);
+        --color-card-border: rgba(255, 255, 255, 0.25);
+        --color-text-primary: #ffffff;
+        --color-text-secondary: rgba(255, 255, 255, 0.85);
+        --color-text-muted: rgba(255, 255, 255, 0.7);
+        --color-button: #f97316;
+        --color-button-hover: #ea580c;
+        --color-focus-ring: rgba(255, 255, 255, 0.9);
+        --shadow-card: 0 20px 40px rgba(15, 23, 42, 0.35);
+        --shadow-button: 0 12px 24px rgba(249, 115, 22, 0.35);
+        --transition-base: 200ms ease;
+      }
+
+      /* Global reset-lite */
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        color: var(--color-text-primary);
+        background: #000;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      main {
+        position: relative;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2.5rem 1.5rem;
+        isolation: isolate;
+        text-align: center;
+      }
+
+      .hero-background {
+        position: fixed;
+        inset: 0;
+        background-image: linear-gradient(var(--color-background-overlay), var(--color-background-overlay)),
+          url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1600&auto=format&fit=crop');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        z-index: -2;
+      }
+
+      .hero-overlay {
+        position: fixed;
+        inset: 0;
+        background: radial-gradient(circle at top, rgba(15, 23, 42, 0.55), transparent 60%),
+          linear-gradient(180deg, rgba(15, 23, 42, 0.55) 0%, rgba(15, 23, 42, 0.75) 100%);
+        z-index: -1;
+      }
+
+      .content-wrapper {
+        max-width: 1000px;
+        width: 100%;
+        display: grid;
+        gap: 2rem;
+        justify-items: center;
+        animation: heroIntro 600ms ease-out forwards;
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      @keyframes heroIntro {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .headline-group {
+        display: grid;
+        gap: 0.75rem;
+      }
+
+      .headline {
+        font-size: clamp(2.2rem, 5vw, 3.75rem);
+        font-weight: 600;
+        margin: 0;
+        letter-spacing: -0.02em;
+      }
+
+      .subheadline {
+        margin: 0;
+        font-size: clamp(1rem, 2.6vw, 1.3rem);
+        font-weight: 400;
+        color: var(--color-text-secondary);
+      }
+
+      .search-card {
+        width: min(100%, 720px);
+        background: var(--color-card-bg);
+        border: 1px solid var(--color-card-border);
+        border-radius: 20px;
+        backdrop-filter: blur(12px);
+        box-shadow: var(--shadow-card);
+        padding: 1.75rem;
+        display: grid;
+        gap: 1.25rem;
+        text-align: left;
+      }
+
+      .form-grid {
+        display: grid;
+        gap: 1.25rem;
+      }
+
+      .form-field {
+        display: grid;
+        gap: 0.5rem;
+      }
+
+      label {
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: var(--color-text-secondary);
+        letter-spacing: 0.01em;
+      }
+
+      select,
+      input[type='date'] {
+        width: 100%;
+        padding: 0.85rem 1rem;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        background-color: rgba(15, 23, 42, 0.35);
+        color: var(--color-text-primary);
+        font-size: 1rem;
+        transition: border-color var(--transition-base), box-shadow var(--transition-base), transform var(--transition-base);
+      }
+
+      select:focus,
+      input[type='date']:focus {
+        outline: none;
+        border-color: var(--color-focus-ring);
+        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+      }
+
+      button {
+        align-self: end;
+        padding: 0.95rem 1.75rem;
+        border: none;
+        border-radius: 999px;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #0f172a;
+        background: var(--color-button);
+        box-shadow: var(--shadow-button);
+        cursor: pointer;
+        width: 100%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform var(--transition-base), box-shadow var(--transition-base), background-color var(--transition-base);
+      }
+
+      button:hover {
+        background: var(--color-button-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 16px 28px rgba(249, 115, 22, 0.45);
+      }
+
+      button:focus-visible {
+        outline: 3px solid var(--color-focus-ring);
+        outline-offset: 3px;
+      }
+
+      button:active {
+        transform: translateY(0);
+      }
+
+      .footer-note {
+        text-align: center;
+        padding: 1rem;
+        font-size: 0.9rem;
+        color: var(--color-text-muted);
+      }
+
+      /* Screen-reader-only utility class for descriptive hints */
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      @media (min-width: 768px) {
+        main {
+          padding: 3rem 3.5rem;
+        }
+
+        .search-card {
+          padding: 2rem;
+        }
+
+        .form-grid {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          align-items: end;
+          gap: 1rem;
+        }
+
+        .form-field {
+          gap: 0.65rem;
+        }
+
+        .form-field.button-field {
+          align-self: stretch;
+          display: flex;
+          justify-content: flex-end;
+          align-items: flex-end;
+        }
+
+        button {
+          width: 100%;
+          max-width: 180px;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        main {
+          padding: 4rem;
+        }
+
+        .content-wrapper {
+          gap: 2.5rem;
+        }
+
+        .form-grid {
+          gap: 1.25rem;
+        }
+
+        button {
+          max-width: 200px;
+          font-size: 1.05rem;
+        }
+      }
+
+      /* Improve date input text color in Safari */
+      input[type='date']::-webkit-calendar-picker-indicator {
+        filter: invert(1);
+      }
+
+      /* Accessible focus states for form controls */
+      select:focus-visible,
+      input[type='date']:focus-visible {
+        outline: 3px solid var(--color-focus-ring);
+        outline-offset: 3px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hero-background" aria-hidden="true"></div>
+    <div class="hero-overlay" aria-hidden="true"></div>
+    <main>
+      <div class="content-wrapper">
+        <header class="headline-group" role="presentation">
+          <h1 class="headline">Find your next trip</h1>
+          <p class="subheadline">Search curated city cards and plan an unforgettable escape.</p>
+        </header>
+
+        <section class="search-card" aria-label="City cards search form">
+          <form id="search-form" class="form-grid" novalidate>
+            <div class="form-field">
+              <label for="destination">Destination</label>
+              <select id="destination" name="destination" required aria-required="true">
+                <option value="" disabled selected>Select destination…</option>
+                <optgroup label="Countries">
+                  <option value="portugal">Portugal</option>
+                  <option value="spain">Spain</option>
+                  <option value="france">France</option>
+                  <option value="italy">Italy</option>
+                  <option value="germany">Germany</option>
+                  <option value="netherlands">Netherlands</option>
+                  <option value="uk">United Kingdom</option>
+                </optgroup>
+                <optgroup label="Cities">
+                  <option value="lisbon">Lisbon</option>
+                  <option value="porto">Porto</option>
+                  <option value="madrid">Madrid</option>
+                  <option value="barcelona">Barcelona</option>
+                  <option value="paris">Paris</option>
+                  <option value="rome">Rome</option>
+                  <option value="berlin">Berlin</option>
+                  <option value="amsterdam">Amsterdam</option>
+                  <option value="london">London</option>
+                </optgroup>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label for="arrive">Arrive</label>
+              <input id="arrive" name="arrive" type="date" aria-describedby="arrive-help" />
+              <span id="arrive-help" class="sr-only">Choose the date you will arrive.</span>
+            </div>
+
+            <div class="form-field">
+              <label for="return">Return</label>
+              <input id="return" name="return" type="date" aria-describedby="return-help" />
+              <span id="return-help" class="sr-only">Choose the date you will return.</span>
+            </div>
+
+            <div class="form-field button-field">
+              <button type="submit">Show Cards</button>
+            </div>
+          </form>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer-note">Prototype UI — functionality coming soon</footer>
+
+    <script>
+      const form = document.getElementById('search-form');
+      const arriveInput = document.getElementById('arrive');
+      const returnInput = document.getElementById('return');
+
+      // Keep the return date in sync with the selected arrival date.
+      arriveInput.addEventListener('change', function (event) {
+        const selectedDate = event.target.value;
+        if (selectedDate) {
+          returnInput.min = selectedDate;
+          if (returnInput.value && returnInput.value < selectedDate) {
+            returnInput.value = selectedDate;
+          }
+        } else {
+          returnInput.removeAttribute('min');
+        }
+      });
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        // Stub: future integration with search results. For now we log for dev insight.
+        console.log('Show Cards clicked');
+      });
+    </script>
+  </body>
+</html>
