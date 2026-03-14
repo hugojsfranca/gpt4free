@@ -1,8 +1,8 @@
 import unittest
 
-from gpt4free.figma_mcp.optimizer import PromptBudget, build_compact_skill_prompt, compress_figma_payload
-from gpt4free.figma_mcp.server import FigmaMCPServer
-from gpt4free.figma_mcp.skills import SKILLS, SkillName
+from integrations.figma_mcp.optimizer import PromptBudget, build_compact_skill_prompt, compress_figma_payload
+from integrations.figma_mcp.server import FigmaMCPServer
+from integrations.figma_mcp.skills import SKILLS, SkillName
 
 
 class FakeFigmaClient:
